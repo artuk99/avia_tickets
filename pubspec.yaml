@@ -1,0 +1,77 @@
+name: avia_tickets
+description: "A new Flutter project."
+publish_to: 'none'
+
+version: 0.0.1+1
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+  flutter: ">=3.19.0 <4.0.0"
+
+dependencies:
+  ## SDK
+  flutter:
+    sdk: flutter
+  intl: any
+
+  ## Logs
+  logging: ^1.2.0
+
+  ## Navigation
+  go_router: ^14.0.2
+
+  ## BLoC
+  flutter_bloc: ^8.1.5
+  bloc_concurrency: ^0.2.5
+
+  ## Network
+  dio: ^5.4.3+1
+  # retrofit: ^4.1.0
+
+  ## Code generation
+  json_annotation: ^4.9.0
+  freezed_annotation: ^2.4.1
+
+  ## Storage
+  shared_preferences: ^2.2.3
+
+  ## UI
+  flutter_svg: ^2.0.10+1
+  animated_text_kit: ^4.2.2
+  snap_scroll_physics: ^0.0.1+3
+
+dev_dependencies:
+  ## Tests
+  flutter_test:
+    sdk: flutter
+  
+  ## Lint
+  flutter_lints: ^3.0.0
+
+  ## Code generation
+  retrofit_generator: ^8.1.0
+  json_serializable: ^6.8.0
+  build_runner: ^2.4.9
+  go_router_builder: ^2.6.1
+  freezed: ^2.5.2
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/
+    - assets/icons/
+    - assets/images/
+
+  shaders:
+    - assets/shaders/shimmer.frag
+    
+  fonts:
+    - family: SfProDisplay
+      fonts:
+        - asset: fonts/sf_pro_regular.otf
+        - asset: fonts/sf_pro_medium.otf
+          weight: 500
+        - asset: fonts/sf_pro_semibold.otf
+          style: italic
+          # weight: 600
