@@ -1,4 +1,5 @@
 import 'package:avia_tickets/src/core/router/routes.dart';
+import 'package:avia_tickets/src/core/theme/app_colors_extension.dart';
 import 'package:avia_tickets/src/feature/avia_tickets/search/model/search_query.dart';
 import 'package:avia_tickets/src/feature/avia_tickets/search/widget/search_scope.dart';
 import 'package:flutter/material.dart';
@@ -93,10 +94,11 @@ class _SearchAppBarState extends State<SearchAppBar> {
 
   @override
   Widget build(BuildContext context) {
+    final appColors = Theme.of(context).extension<BasicColors>()!;
     return DecoratedBox(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
-        color: const Color(0xff2F3035),
+        color: appColors.grey_3,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -117,13 +119,7 @@ class _SearchAppBarState extends State<SearchAppBar> {
                   builder: (context, hasFocus, child) => TextField(
                     controller: _departureSearchController,
                     focusNode: _departureFocusNode,
-                    style: const TextStyle(
-                      height: 1.3,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      fontFamily: 'SfProDisplay',
-                      color: Colors.white,
-                    ),
+                    style: Theme.of(context).textTheme.bodySmall,
                     decoration: InputDecoration(
                         border: InputBorder.none,
                         prefixIcon: IconButton(
@@ -153,8 +149,8 @@ class _SearchAppBarState extends State<SearchAppBar> {
               ),
             ),
           ),
-          const Divider(
-            color: Color(0xff5E5F61),
+          Divider(
+            color: appColors.grey_4,
             indent: 16,
             endIndent: 16,
             height: 1,
@@ -176,13 +172,7 @@ class _SearchAppBarState extends State<SearchAppBar> {
                     focusNode: _destinationFocusNode,
                     onChanged: _onChanged,
                     onEditingComplete: _onEditingComplete,
-                    style: const TextStyle(
-                      height: 1.3,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      fontFamily: 'SfProDisplay',
-                      color: Colors.white,
-                    ),
+                    style: Theme.of(context).textTheme.bodySmall,
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       prefixIcon: IconButton(

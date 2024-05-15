@@ -1,4 +1,5 @@
 import 'package:avia_tickets/src/core/router/routes.dart';
+import 'package:avia_tickets/src/core/theme/app_colors_extension.dart';
 import 'package:avia_tickets/src/feature/avia_tickets/search/model/search_query.dart';
 import 'package:avia_tickets/src/feature/avia_tickets/search/widget/search_scope.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ class HintsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appColors = Theme.of(context).extension<BasicColors>()!;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -18,7 +20,7 @@ class HintsList extends StatelessWidget {
             Navigator.of(context).pop();
           },
           iconAsset: 'assets/icons/route.svg',
-          iconBackgroundColor: const Color(0xff3A633B),
+          iconBackgroundColor: appColors.green,
           title: 'Сложный \nмаршрут',
         ),
         const SizedBox(width: 16),
@@ -31,7 +33,7 @@ class HintsList extends StatelessWidget {
             ));
           },
           iconAsset: 'assets/icons/web.svg',
-          iconBackgroundColor: const Color(0xff2261BC),
+          iconBackgroundColor: appColors.blue,
           title: 'Куда угодно',
         ),
         const SizedBox(width: 16),
@@ -41,7 +43,7 @@ class HintsList extends StatelessWidget {
             Navigator.of(context).pop();
           },
           iconAsset: 'assets/icons/calendar.svg',
-          iconBackgroundColor: const Color(0xff00427D),
+          iconBackgroundColor: appColors.darkBlue,
           title: 'Выходные',
         ),
         const SizedBox(width: 16),
@@ -51,7 +53,7 @@ class HintsList extends StatelessWidget {
             Navigator.of(context).pop();
           },
           iconAsset: 'assets/icons/fire.svg',
-          iconBackgroundColor: const Color(0xffFF5E5E),
+          iconBackgroundColor: appColors.red,
           title: 'Горячие \nбилеты',
         ),
       ],
@@ -130,13 +132,7 @@ class _HintWidgetState extends State<_HintWidget> with SingleTickerProviderState
             Text(
               widget.title,
               textAlign: TextAlign.center,
-              style: const TextStyle(
-                height: 1.2,
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-                fontFamily: 'SfProDisplay',
-                color: Colors.white,
-              ),
+              style: Theme.of(context).textTheme.labelLarge,
             ),
           ],
         ),

@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:avia_tickets/src/core/theme/app_colors_extension.dart';
 import 'package:avia_tickets/src/core/utils/extensions/date_extension.dart';
 import 'package:avia_tickets/src/feature/avia_tickets/search/widget/search_scope.dart';
 import 'package:flutter/material.dart';
@@ -54,14 +55,16 @@ class _AppBarDelegate extends SliverPersistentHeaderDelegate {
     final height = lerpDouble(minExtent - topSafePadding, maxExtent, t)!;
     final outterPadding = lerpDouble(_outterPaddingTween.begin, _outterPaddingTween.end, t);
 
+    final textTheme = Theme.of(context).textTheme;
+    final appColors = Theme.of(context).extension<BasicColors>()!;
     return ColoredBox(
-      color: Colors.black,
+      color: Theme.of(context).scaffoldBackgroundColor,
       child: Align(
         alignment: Alignment.bottomCenter,
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: outterPadding!),
           child: ColoredBox(
-            color: const Color(0xff242529),
+            color: appColors.grey_2,
             child: SizedBox(
               height: height,
               child: Padding(
@@ -74,8 +77,8 @@ class _AppBarDelegate extends SliverPersistentHeaderDelegate {
                         onPressed: onBackIconTap,
                         icon: SvgPicture.asset(
                           'assets/icons/arrow_back.svg',
-                          colorFilter: const ColorFilter.mode(
-                            Color(0xff2261BC),
+                          colorFilter: ColorFilter.mode(
+                            appColors.blue,
                             BlendMode.srcIn,
                           ),
                         ),
@@ -92,13 +95,7 @@ class _AppBarDelegate extends SliverPersistentHeaderDelegate {
 
                             return Text(
                               '$departure - $arrival',
-                              style: const TextStyle(
-                                height: 1.2,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                                fontFamily: 'SfProDisplay',
-                                color: Colors.white,
-                              ),
+                              style: textTheme.bodyLarge,
                             );
                           }),
                           const SizedBox(height: 4),
@@ -113,12 +110,9 @@ class _AppBarDelegate extends SliverPersistentHeaderDelegate {
 
                             return Text(
                               '$dates, ${passengers.adults} пассажир',
-                              style: const TextStyle(
-                                height: 1.2,
-                                fontSize: 14,
+                              style: textTheme.titleSmall!.copyWith(
                                 fontStyle: FontStyle.italic,
-                                fontFamily: 'SfProDisplay',
-                                color: Color(0xff9F9F9F),
+                                color: appColors.grey_6,
                               ),
                             );
                           }),

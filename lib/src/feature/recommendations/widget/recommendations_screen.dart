@@ -5,19 +5,15 @@ class RecommendationsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      backgroundColor: Colors.black,
+    return Scaffold(
       body: CustomScrollView(
-        physics: ClampingScrollPhysics(),
+        physics: const ClampingScrollPhysics(),
         slivers: [
           SliverAppBar(
-            backgroundColor: Color(0xff242529),
             centerTitle: true,
             title: Text(
               'Короче',
-              style: TextStyle(
-                color: Colors.white,
-              ),
+              style: Theme.of(context).textTheme.titleLarge,
             ),
           ),
         ],

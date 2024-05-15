@@ -1,3 +1,4 @@
+import 'package:avia_tickets/src/core/theme/app_colors_extension.dart';
 import 'package:avia_tickets/src/core/utils/extensions/date_extension.dart';
 import 'package:avia_tickets/src/feature/avia_tickets/search/model/search_query.dart';
 import 'package:avia_tickets/src/feature/avia_tickets/search/widget/search_scope.dart';
@@ -24,30 +25,18 @@ class SearchFilters extends StatelessWidget {
 
                 return ActionChip(
                   onPressed: () {},
-                  color: MaterialStateColor.resolveWith((states) => const Color(0xff2F3035)),
-                  side: BorderSide.none,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  labelPadding: EdgeInsets.zero,
                   label: Row(
                     children: [
                       const Icon(
                         Icons.person,
                         size: 16,
-                        color: Color(0xff5E5F61),
                       ),
                       const SizedBox(width: 8),
                       Text(
                         '${passengers.adults},${passengers.type}',
-                        style: const TextStyle(
-                          height: 1.2,
-                          fontSize: 14,
-                          fontStyle: FontStyle.italic,
-                          fontFamily: 'SfProDisplay',
-                          color: Colors.white,
-                        ),
+                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                              fontStyle: FontStyle.italic,
+                            ),
                       ),
                     ],
                   ),
@@ -72,15 +61,11 @@ class SearchFilters extends StatelessWidget {
                     height: 16,
                   ),
                   const SizedBox(width: 8),
-                  const Text(
+                  Text(
                     'фильтры',
-                    style: TextStyle(
-                      height: 1.2,
-                      fontSize: 14,
-                      fontStyle: FontStyle.italic,
-                      fontFamily: 'SfProDisplay',
-                      color: Colors.white,
-                    ),
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                          fontStyle: FontStyle.italic,
+                        ),
                   ),
                 ],
               ),
@@ -98,16 +83,6 @@ class _DateFilters extends StatefulWidget {
 }
 
 class _DateFiltersState extends State<_DateFilters> {
-  // late DateTime _departureDate;
-  // late DateTime? _returnDate;
-
-  // @override
-  // void didChangeDependencies() {
-  //   _departureDate = SearchScope.of(context).searchQuery.flightDate.departure;
-  //   _returnDate = SearchScope.of(context).searchQuery.flightDate.back;
-  //   super.didChangeDependencies();
-  // }
-
   void _onDepartureTap() async {
     final searchQuery = SearchScope.of(context, listen: false).searchQuery;
     final now = DateTime.now();
@@ -127,14 +102,6 @@ class _DateFiltersState extends State<_DateFilters> {
       }
 
       SearchScope.of(context, listen: false).search(searchQuery.copyWith(flightDate: fightDate));
-
-      // setState(() {
-      //   _departureDate = selectedDate;
-
-      //   if (_returnDate?.isBefore(_departureDate) ?? false) {
-      //     _returnDate = null;
-      //   }
-      // });
     }
   }
 
@@ -154,10 +121,6 @@ class _DateFiltersState extends State<_DateFilters> {
 
       SearchScope.of(context, listen: false).search(searchQuery.copyWith(flightDate: fightDate));
     }
-
-    // setState(() {
-    //   _returnDate = selectedDate;
-    // });
   }
 
   @override
@@ -166,6 +129,8 @@ class _DateFiltersState extends State<_DateFilters> {
     final departureDate = fightDate.departure;
     final backDate = fightDate.back;
 
+    final textTheme = Theme.of(context).textTheme;
+    final appColors = Theme.of(context).extension<BasicColors>()!;
     return backDate != null
         ? Builder(
             builder: (context) {
@@ -173,7 +138,7 @@ class _DateFiltersState extends State<_DateFilters> {
 
               return DecoratedBox(
                 decoration: BoxDecoration(
-                  color: const Color(0xff2F3035),
+                  color: appColors.grey_3,
                   borderRadius: BorderRadius.circular(50),
                 ),
                 child: IntrinsicHeight(
@@ -196,23 +161,16 @@ class _DateFiltersState extends State<_DateFilters> {
                                   WidgetSpan(
                                     child: Text(
                                       departureDate.daymonthAbbreviated,
-                                      style: const TextStyle(
-                                        height: 1.2,
-                                        fontSize: 14,
+                                      style: textTheme.titleSmall!.copyWith(
                                         fontStyle: FontStyle.italic,
-                                        fontFamily: 'SfProDisplay',
-                                        color: Colors.white,
                                       ),
                                     ),
                                   ),
                                   TextSpan(
                                     text: ', ${departureDate.dayAbbreviated}',
-                                    style: const TextStyle(
-                                      height: 1.2,
-                                      fontSize: 14,
+                                    style: textTheme.titleSmall!.copyWith(
                                       fontStyle: FontStyle.italic,
-                                      fontFamily: 'SfProDisplay',
-                                      color: Color(0xff9F9F9F),
+                                      color: appColors.grey_6,
                                     ),
                                   ),
                                 ],
@@ -221,8 +179,8 @@ class _DateFiltersState extends State<_DateFilters> {
                           ),
                         ),
                       ),
-                      const VerticalDivider(
-                        color: Color(0xff9F9F9F),
+                      VerticalDivider(
+                        color: appColors.grey_6,
                         indent: 8,
                         endIndent: 8,
                         width: 1,
@@ -243,23 +201,16 @@ class _DateFiltersState extends State<_DateFilters> {
                                   WidgetSpan(
                                     child: Text(
                                       backDate.daymonthAbbreviated,
-                                      style: const TextStyle(
-                                        height: 1.2,
-                                        fontSize: 14,
+                                      style: textTheme.titleSmall!.copyWith(
                                         fontStyle: FontStyle.italic,
-                                        fontFamily: 'SfProDisplay',
-                                        color: Colors.white,
                                       ),
                                     ),
                                   ),
                                   TextSpan(
                                     text: ', $returnDay',
-                                    style: const TextStyle(
-                                      height: 1.2,
-                                      fontSize: 14,
+                                    style: textTheme.titleSmall!.copyWith(
                                       fontStyle: FontStyle.italic,
-                                      fontFamily: 'SfProDisplay',
-                                      color: Color(0xff9F9F9F),
+                                      color: appColors.grey_6,
                                     ),
                                   ),
                                 ],
@@ -278,29 +229,17 @@ class _DateFiltersState extends State<_DateFilters> {
             children: [
               ActionChip(
                 onPressed: _onReturnTap,
-                color: MaterialStateColor.resolveWith((states) => const Color(0xff2F3035)),
-                side: BorderSide.none,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                labelPadding: EdgeInsets.zero,
-                label: const Row(
+                label: Row(
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.add,
                       size: 16,
-                      color: Color(0xffDBDBDB),
                     ),
-                    SizedBox(width: 8),
+                    const SizedBox(width: 8),
                     Text(
                       'обратно',
-                      style: TextStyle(
-                        height: 1.2,
-                        fontSize: 14,
+                      style: textTheme.titleSmall!.copyWith(
                         fontStyle: FontStyle.italic,
-                        fontFamily: 'SfProDisplay',
-                        color: Colors.white,
                       ),
                     ),
                   ],
@@ -309,36 +248,22 @@ class _DateFiltersState extends State<_DateFilters> {
               const SizedBox(width: 8),
               ActionChip(
                 onPressed: _onDepartureTap,
-                color: MaterialStateColor.resolveWith((states) => const Color(0xff2F3035)),
-                side: BorderSide.none,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                labelPadding: EdgeInsets.zero,
                 label: RichText(
                   text: TextSpan(
                     children: [
                       WidgetSpan(
                         child: Text(
                           departureDate.daymonthAbbreviated,
-                          style: const TextStyle(
-                            height: 1.2,
-                            fontSize: 14,
+                          style: textTheme.titleSmall!.copyWith(
                             fontStyle: FontStyle.italic,
-                            fontFamily: 'SfProDisplay',
-                            color: Colors.white,
                           ),
                         ),
                       ),
                       TextSpan(
                         text: ', ${departureDate.dayAbbreviated}',
-                        style: const TextStyle(
-                          height: 1.2,
-                          fontSize: 14,
+                        style: textTheme.titleSmall!.copyWith(
                           fontStyle: FontStyle.italic,
-                          fontFamily: 'SfProDisplay',
-                          color: Color(0xff9F9F9F),
+                          color: appColors.grey_6,
                         ),
                       ),
                     ],

@@ -1,3 +1,4 @@
+import 'package:avia_tickets/src/core/theme/app_colors_extension.dart';
 import 'package:avia_tickets/src/core/utils/extensions/date_extension.dart';
 import 'package:avia_tickets/src/core/utils/extensions/price_extension.dart';
 import 'package:avia_tickets/src/feature/avia_tickets/results/bloc/tickets_bloc.dart';
@@ -35,12 +36,14 @@ class _TicketCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final flyghtTime = ticket.arrival.date.difference(ticket.departure.date);
 
+    final textTheme = Theme.of(context).textTheme;
+    final appColors = Theme.of(context).extension<BasicColors>()!;
     return Stack(
       clipBehavior: Clip.none,
       children: [
         Card(
           margin: EdgeInsets.zero,
-          color: const Color(0xff1D1E20),
+          color: appColors.grey_1,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),
@@ -55,13 +58,7 @@ class _TicketCard extends StatelessWidget {
                   if (ticket.badge != null) const SizedBox(height: 5),
                   Text(
                     '${ticket.price.formatted} \u{20BD}',
-                    style: const TextStyle(
-                      height: 1.2,
-                      fontSize: 24,
-                      fontWeight: FontWeight.w600,
-                      fontFamily: 'SfProDisplay',
-                      color: Colors.white,
-                    ),
+                    style: textTheme.titleLarge,
                   ),
                   const SizedBox(height: 16),
                   IntrinsicHeight(
@@ -73,7 +70,7 @@ class _TicketCard extends StatelessWidget {
                             dimension: 24,
                             child: DecoratedBox(
                               decoration: BoxDecoration(
-                                color: const Color(0xffFF5E5E),
+                                color: appColors.red,
                                 borderRadius: BorderRadius.circular(24),
                               ),
                             ),
@@ -85,35 +82,30 @@ class _TicketCard extends StatelessWidget {
                           children: [
                             Text(
                               ticket.departure.date.hh_mm,
-                              style: const TextStyle(
-                                height: 1.2,
-                                fontSize: 14,
+                              style: textTheme.titleSmall!.copyWith(
                                 fontStyle: FontStyle.italic,
-                                fontFamily: 'SfProDisplay',
-                                color: Colors.white,
                               ),
                             ),
                             const SizedBox(height: 4),
                             Text(
                               ticket.departure.airport,
-                              style: const TextStyle(
-                                height: 1.2,
-                                fontSize: 14,
+                              style: textTheme.titleSmall!.copyWith(
                                 fontStyle: FontStyle.italic,
-                                fontFamily: 'SfProDisplay',
-                                color: Color(0xff9F9F9F),
+                                color: appColors.grey_6,
                               ),
                             ),
                           ],
                         ),
                         const SizedBox(width: 2),
                         RichText(
-                          text: const WidgetSpan(
+                          text: WidgetSpan(
                             alignment: PlaceholderAlignment.middle,
                             child: SizedBox(
                               height: 1,
                               width: 10,
-                              child: ColoredBox(color: Color(0xff9F9F9F)),
+                              child: ColoredBox(
+                                color: appColors.grey_6,
+                              ),
                             ),
                           ),
                         ),
@@ -123,23 +115,16 @@ class _TicketCard extends StatelessWidget {
                           children: [
                             Text(
                               ticket.arrival.date.hh_mm,
-                              style: const TextStyle(
-                                height: 1.2,
-                                fontSize: 14,
+                              style: textTheme.titleSmall!.copyWith(
                                 fontStyle: FontStyle.italic,
-                                fontFamily: 'SfProDisplay',
-                                color: Colors.white,
                               ),
                             ),
                             const SizedBox(height: 4),
                             Text(
                               ticket.arrival.airport,
-                              style: const TextStyle(
-                                height: 1.2,
-                                fontSize: 14,
+                              style: textTheme.titleSmall!.copyWith(
                                 fontStyle: FontStyle.italic,
-                                fontFamily: 'SfProDisplay',
-                                color: Color(0xff9F9F9F),
+                                color: appColors.grey_6,
                               ),
                             ),
                           ],
@@ -153,34 +138,18 @@ class _TicketCard extends StatelessWidget {
                               children: [
                                 TextSpan(
                                   text: '${flyghtTime.inHours}ч в пути',
-                                  style: const TextStyle(
-                                    height: 1.2,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily: 'SfProDisplay',
-                                    color: Colors.white,
-                                  ),
+                                  style: textTheme.labelLarge,
                                 ),
                                 if (!ticket.hasTransfer) ...[
-                                  const TextSpan(
+                                  TextSpan(
                                     text: " / ",
-                                    style: TextStyle(
-                                      height: 1.2,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w400,
-                                      fontFamily: 'SfProDisplay',
-                                      color: Color(0xff9F9F9F),
+                                    style: textTheme.labelLarge!.copyWith(
+                                      color: appColors.grey_6,
                                     ),
                                   ),
-                                  const TextSpan(
+                                  TextSpan(
                                     text: "Без пересадок",
-                                    style: TextStyle(
-                                      height: 1.2,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w400,
-                                      fontFamily: 'SfProDisplay',
-                                      color: Colors.white,
-                                    ),
+                                    style: textTheme.labelLarge,
                                   ),
                                 ],
                               ],
@@ -200,19 +169,15 @@ class _TicketCard extends StatelessWidget {
             top: -8,
             child: DecoratedBox(
               decoration: BoxDecoration(
-                color: const Color(0xff2261BC),
+                color: appColors.blue,
                 borderRadius: BorderRadius.circular(50),
               ),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                 child: Text(
                   ticket.badge!,
-                  style: const TextStyle(
-                    height: 1.2,
-                    fontSize: 14,
+                  style: textTheme.titleSmall!.copyWith(
                     fontStyle: FontStyle.italic,
-                    fontFamily: 'SfProDisplay',
-                    color: Colors.white,
                   ),
                 ),
               ),

@@ -2,6 +2,7 @@ import 'dart:math';
 import 'dart:ui';
 
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:avia_tickets/src/core/theme/app_colors_extension.dart';
 import 'package:avia_tickets/src/core/utils/text_measure.dart';
 import 'package:avia_tickets/src/core/widget/animated_text.dart';
 import 'package:avia_tickets/src/feature/avia_tickets/search/model/search_query.dart';
@@ -21,16 +22,11 @@ class _SearchAppBarState extends State<SearchAppBar> {
   Size _textSize = Size.zero;
 
   @override
-  void initState() {
-    super.initState();
-
+  void didChangeDependencies() {
     _textSize = TextMeasure.measure(
       'Поиск дешевых \nавиабилетов',
       width: double.infinity,
-      style: TextStyle(
-        height: 1.2,
-        fontSize: 22,
-        fontFamily: 'SfProDisplay',
+      style: Theme.of(context).textTheme.titleLarge!.copyWith(
         shadows: [
           BoxShadow(
             offset: const Offset(0, 4),
@@ -40,6 +36,8 @@ class _SearchAppBarState extends State<SearchAppBar> {
         ],
       ),
     );
+
+    super.didChangeDependencies();
   }
 
   void _onSearchFieldTap({
@@ -105,20 +103,6 @@ class _SearchFieldDelegate extends SliverPersistentHeaderDelegate {
   final double topSafePadding;
   final Size textSize;
 
-  final _titleStyle = TextStyle(
-    height: 1.2,
-    fontSize: 22,
-    fontWeight: FontWeight.w600,
-    fontFamily: 'SfProDisplay',
-    shadows: [
-      BoxShadow(
-        offset: const Offset(0, 4),
-        blurRadius: 4,
-        color: Colors.black.withOpacity(0.25),
-      ),
-    ],
-  );
-
   static const _searchFieldHeight = 122;
 
   @override
@@ -128,6 +112,15 @@ class _SearchFieldDelegate extends SliverPersistentHeaderDelegate {
     bool overlapsContent,
   ) {
     /// Title
+    final titleStyle = Theme.of(context).textTheme.titleLarge!.copyWith(
+      shadows: [
+        BoxShadow(
+          offset: const Offset(0, 4),
+          blurRadius: 4,
+          color: Colors.black.withOpacity(0.25),
+        ),
+      ],
+    );
     final titleTopPadding = (maxExtent - _searchFieldHeight - textSize.height + topSafePadding) / 2;
 
     /// SearchField
@@ -146,6 +139,7 @@ class _SearchFieldDelegate extends SliverPersistentHeaderDelegate {
     final contentOpacityExpanded = lerpDouble(1, 0, min(t_3, 1));
     final contentOpacityCollapsed = lerpDouble(0, 1, min(t_3 <= 1 ? 0 : t_3 - 1, 1));
 
+    final appColors = Theme.of(context).extension<BasicColors>()!;
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: outterPadding!),
       child: Stack(
@@ -162,7 +156,7 @@ class _SearchFieldDelegate extends SliverPersistentHeaderDelegate {
                   Text(
                     'Поиск дешевых \nавиабилетов',
                     textAlign: TextAlign.center,
-                    style: _titleStyle.copyWith(
+                    style: titleStyle.copyWith(
                       foreground: Paint()
                         ..style = PaintingStyle.stroke
                         ..strokeWidth = 1
@@ -172,9 +166,7 @@ class _SearchFieldDelegate extends SliverPersistentHeaderDelegate {
                   Text(
                     'Поиск дешевых \nавиабилетов',
                     textAlign: TextAlign.center,
-                    style: _titleStyle.copyWith(
-                      color: const Color(0xffD9D9D9),
-                    ),
+                    style: titleStyle,
                   ),
                 ],
               ),
@@ -188,22 +180,15 @@ class _SearchFieldDelegate extends SliverPersistentHeaderDelegate {
               height: height,
               child: DecoratedBox(
                 decoration: BoxDecoration(
-                  color: const Color(0xff2F3035),
+                  color: appColors.grey_3,
                   borderRadius: outterBorder,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.25),
-                      blurRadius: 4,
-                      offset: const Offset(0, 4),
-                    ),
-                  ],
                 ),
                 child: Padding(
                   padding: EdgeInsets.fromLTRB(10, max(10, innerTopPadding!), 10, 10),
                   child: DecoratedBox(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(16),
-                      color: const Color(0xff3E3F43),
+                      color: appColors.grey_4,
                       boxShadow: [
                         BoxShadow(
                           color: Colors.black.withOpacity(0.25),
@@ -232,26 +217,23 @@ class _SearchFieldDelegate extends SliverPersistentHeaderDelegate {
                                     ),
                                     child: Padding(
                                       padding: const EdgeInsets.only(left: 40, top: 16, bottom: 12),
-                                      child: Builder(builder: (context) {
-                                        final departure =
-                                            SearchScope.of(context).searchQuery.departure.town;
+                                      child: Builder(
+                                        builder: (context) {
+                                          final departure =
+                                              SearchScope.of(context).searchQuery.departure.town;
 
-                                        return Text(
-                                          departure,
-                                          style: const TextStyle(
-                                              height: 1.3,
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w600,
-                                              fontFamily: 'SfProDisplay',
-                                              color: Colors.white),
-                                        );
-                                      }),
+                                          return Text(
+                                            departure,
+                                            style: Theme.of(context).textTheme.bodySmall!,
+                                          );
+                                        },
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
-                              const Divider(
-                                color: Color(0xff5E5F61),
+                              Divider(
+                                color: appColors.grey_5,
                                 indent: 40,
                                 endIndent: 16,
                                 height: 1,
@@ -270,16 +252,15 @@ class _SearchFieldDelegate extends SliverPersistentHeaderDelegate {
                                       padding: const EdgeInsets.only(left: 40, bottom: 16, top: 12),
                                       child: RichText(
                                         text: TextSpan(
-                                          style: const TextStyle(
-                                            height: 1.3,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w600,
-                                            fontFamily: 'SfProDisplay',
-                                            color: Color(0xff9F9F9F),
-                                          ),
                                           children: [
-                                            const TextSpan(
-                                              text: 'Куда - ',
+                                            WidgetSpan(
+                                              child: Text(
+                                                'Куда - ',
+                                                style:
+                                                    Theme.of(context).textTheme.bodySmall!.copyWith(
+                                                          color: appColors.grey_6,
+                                                        ),
+                                              ),
                                             ),
                                             WidgetSpan(
                                               child: AnimatedTextKit(
@@ -288,13 +269,12 @@ class _SearchFieldDelegate extends SliverPersistentHeaderDelegate {
                                                   TyperAndDelitingAnimatedText(
                                                     'Турция',
                                                     speed: const Duration(milliseconds: 200),
-                                                    textStyle: const TextStyle(
-                                                      height: 1.3,
-                                                      fontSize: 16,
-                                                      fontWeight: FontWeight.w600,
-                                                      fontFamily: 'SfProDisplay',
-                                                      color: Color(0xff9F9F9F),
-                                                    ),
+                                                    textStyle: Theme.of(context)
+                                                        .textTheme
+                                                        .bodySmall!
+                                                        .copyWith(
+                                                          color: appColors.grey_6,
+                                                        ),
                                                   ),
                                                 ],
                                               ),
@@ -315,15 +295,9 @@ class _SearchFieldDelegate extends SliverPersistentHeaderDelegate {
                             padding: const EdgeInsets.only(left: 40),
                             child: Opacity(
                               opacity: contentOpacityCollapsed!,
-                              child: const Text(
+                              child: Text(
                                 'Откуда - Куда',
-                                style: TextStyle(
-                                  height: 1.3,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600,
-                                  fontFamily: 'SfProDisplay',
-                                  color: Colors.white,
-                                ),
+                                style: Theme.of(context).textTheme.bodySmall!,
                               ),
                             ),
                           ),

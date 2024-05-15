@@ -1,3 +1,4 @@
+import 'package:avia_tickets/src/core/theme/app_colors_extension.dart';
 import 'package:avia_tickets/src/core/utils/extensions/price_extension.dart';
 import 'package:avia_tickets/src/feature/avia_tickets/result_preview/bloc/recommendations_bloc.dart';
 import 'package:avia_tickets/src/feature/avia_tickets/result_preview/model/ticket_recomendation.dart';
@@ -9,9 +10,10 @@ class RecommendedFlights extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appColors = Theme.of(context).extension<BasicColors>()!;
     return DecoratedBox(
       decoration: BoxDecoration(
-        color: const Color(0xff1D1E20),
+        color: appColors.grey_1,
         borderRadius: BorderRadius.circular(16),
       ),
       child: Padding(
@@ -20,17 +22,11 @@ class RecommendedFlights extends StatelessWidget {
           builder: (context, state) => Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
                   'Прямые рельсы',
-                  style: TextStyle(
-                    height: 1.2,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                    fontFamily: 'SfProDisplay',
-                    color: Colors.white,
-                  ),
+                  style: Theme.of(context).textTheme.titleMedium,
                 ),
               ),
               const SizedBox(height: 8),
@@ -67,6 +63,8 @@ class _Flight extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final appColors = Theme.of(context).extension<BasicColors>()!;
     return Material(
       color: Colors.transparent,
       child: InkWell(
@@ -74,10 +72,10 @@ class _Flight extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: DecoratedBox(
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               border: Border(
                 bottom: BorderSide(
-                  color: Color(0xff3E3F43),
+                  color: appColors.grey_4,
                 ),
               ),
             ),
@@ -109,23 +107,16 @@ class _Flight extends StatelessWidget {
                                 recommendation.title,
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                  height: 1.2,
-                                  fontSize: 14,
+                                style: textTheme.titleSmall!.copyWith(
                                   fontStyle: FontStyle.italic,
-                                  fontFamily: 'SfProDisplay',
-                                  color: Colors.white,
                                 ),
                               ),
                             ),
                             Text(
                               '${recommendation.price.formatted} \u{20BD}',
-                              style: const TextStyle(
-                                height: 1.2,
-                                fontSize: 14,
+                              style: textTheme.titleSmall!.copyWith(
                                 fontStyle: FontStyle.italic,
-                                fontFamily: 'SfProDisplay',
-                                color: Color(0xff2261BC),
+                                color: appColors.blue,
                               ),
                             ),
                           ],
@@ -135,13 +126,7 @@ class _Flight extends StatelessWidget {
                           recommendation.timeRange.join(' '),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                            height: 1.2,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            fontFamily: 'SfProDisplay',
-                            color: Colors.white,
-                          ),
+                          style: textTheme.labelLarge,
                         ),
                       ],
                     ),

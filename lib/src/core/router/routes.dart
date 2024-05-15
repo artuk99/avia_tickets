@@ -1,3 +1,4 @@
+import 'package:avia_tickets/src/core/theme/app_colors_extension.dart';
 import 'package:avia_tickets/src/feature/avia_tickets/home/bloc/offers_bloc.dart';
 import 'package:avia_tickets/src/feature/avia_tickets/home/widget/home_screen.dart';
 import 'package:avia_tickets/src/feature/avia_tickets/result_preview/bloc/recommendations_bloc.dart';
@@ -80,131 +81,109 @@ class RootRoute extends StatefulShellRouteData {
     GoRouterState state,
     StatefulNavigationShell navigationShell,
   ) {
+    final appColors = Theme.of(context).extension<BasicColors>()!;
+
     return Scaffold(
       // key: scaffoldKey,
       body: navigationShell,
       bottomNavigationBar: Material(
         clipBehavior: Clip.hardEdge,
-        // borderRadius: BorderRadius.circular(24),
-        shape: const Border(
+        shape: Border(
           top: BorderSide(
-            color: Color(0xff201D1D),
+            color: appColors.grey_1,
             width: 1,
           ),
         ),
-        child: NavigationBarTheme(
-          data: NavigationBarThemeData(
-            height: 54,
-            backgroundColor: const Color(0xff0C0C0C),
-            labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
-            indicatorColor: Colors.transparent,
-            labelTextStyle: MaterialStateProperty.resolveWith<TextStyle>(
-              (Set<MaterialState> states) => states.contains(MaterialState.selected)
-                  ? const TextStyle(
-                      height: 1.1,
-                      fontSize: 10,
-                      fontFamily: 'SfProDisplay',
-                      color: Color(0xff2261BC),
-                    )
-                  : const TextStyle(
-                      height: 1.1,
-                      fontSize: 10,
-                      fontFamily: 'SfProDisplay',
-                      color: Color(0xff9F9F9F),
-                    ),
+        child: NavigationBar(
+          onDestinationSelected: (index) => navigationShell.goBranch(index),
+          selectedIndex: navigationShell.currentIndex,
+          destinations: [
+            NavigationDestination(
+              label: 'Авиабилеты',
+              icon: SvgPicture.asset(
+                'assets/icons/plane.svg',
+                colorFilter: ColorFilter.mode(
+                  appColors.grey_6,
+                  BlendMode.srcIn,
+                ),
+              ),
+              selectedIcon: SvgPicture.asset(
+                'assets/icons/plane.svg',
+                colorFilter: ColorFilter.mode(
+                  appColors.blue,
+                  BlendMode.srcIn,
+                ),
+              ),
             ),
-          ),
-          child: NavigationBar(
-            onDestinationSelected: (index) => navigationShell.goBranch(index),
-            selectedIndex: navigationShell.currentIndex,
-            destinations: [
-              NavigationDestination(
-                label: 'Авиабилеты',
-                icon: SvgPicture.asset(
-                  'assets/icons/plane.svg',
-                  colorFilter: const ColorFilter.mode(
-                    Color(0xff9F9F9F),
-                    BlendMode.srcIn,
-                  ),
-                ),
-                selectedIcon: SvgPicture.asset(
-                  'assets/icons/plane.svg',
-                  colorFilter: const ColorFilter.mode(
-                    Color(0xff2261BC),
-                    BlendMode.srcIn,
-                  ),
+            NavigationDestination(
+              label: 'Отели',
+              icon: SvgPicture.asset(
+                'assets/icons/hotel.svg',
+                colorFilter: ColorFilter.mode(
+                  appColors.grey_6,
+                  BlendMode.srcIn,
                 ),
               ),
-              NavigationDestination(
-                label: 'Отели',
-                icon: SvgPicture.asset(
-                  'assets/icons/hotel.svg',
-                  colorFilter: const ColorFilter.mode(
-                    Color(0xff9F9F9F),
-                    BlendMode.srcIn,
-                  ),
-                ),
-                selectedIcon: SvgPicture.asset(
-                  'assets/icons/hotel.svg',
-                  colorFilter: const ColorFilter.mode(
-                    Color(0xff2261BC),
-                    BlendMode.srcIn,
-                  ),
+              selectedIcon: SvgPicture.asset(
+                'assets/icons/hotel.svg',
+                colorFilter: ColorFilter.mode(
+                  appColors.blue,
+                  BlendMode.srcIn,
                 ),
               ),
-              NavigationDestination(
-                label: 'Короче',
-                icon: SvgPicture.asset(
-                  'assets/icons/target.svg',
-                  colorFilter: const ColorFilter.mode(
-                    Color(0xff9F9F9F),
-                    BlendMode.srcIn,
-                  ),
-                ),
-                selectedIcon: SvgPicture.asset(
-                  'assets/icons/target.svg',
-                  colorFilter: const ColorFilter.mode(
-                    Color(0xff2261BC),
-                    BlendMode.srcIn,
-                  ),
+            ),
+            NavigationDestination(
+              label: 'Короче',
+              icon: SvgPicture.asset(
+                'assets/icons/target.svg',
+                colorFilter: ColorFilter.mode(
+                  appColors.grey_6,
+                  BlendMode.srcIn,
                 ),
               ),
-              NavigationDestination(
-                label: 'Подписки',
-                icon: SvgPicture.asset(
-                  'assets/icons/notification.svg',
-                  colorFilter: const ColorFilter.mode(
-                    Color(0xff9F9F9F),
-                    BlendMode.srcIn,
-                  ),
-                ),
-                selectedIcon: SvgPicture.asset(
-                  'assets/icons/notification.svg',
-                  colorFilter: const ColorFilter.mode(
-                    Color(0xff2261BC),
-                    BlendMode.srcIn,
-                  ),
+              selectedIcon: SvgPicture.asset(
+                'assets/icons/target.svg',
+                colorFilter: ColorFilter.mode(
+                  appColors.blue,
+                  BlendMode.srcIn,
                 ),
               ),
-              NavigationDestination(
-                label: 'Профиль',
-                icon: SvgPicture.asset(
-                  'assets/icons/profile.svg',
-                  colorFilter: const ColorFilter.mode(
-                    Color(0xff9F9F9F),
-                    BlendMode.srcIn,
-                  ),
-                ),
-                selectedIcon: SvgPicture.asset(
-                  'assets/icons/profile.svg',
-                  colorFilter: const ColorFilter.mode(
-                    Color(0xff2261BC),
-                    BlendMode.srcIn,
-                  ),
+            ),
+            NavigationDestination(
+              label: 'Подписки',
+              icon: SvgPicture.asset(
+                'assets/icons/notification.svg',
+                colorFilter: ColorFilter.mode(
+                  appColors.grey_6,
+                  BlendMode.srcIn,
                 ),
               ),
-            ],
-          ),
+              selectedIcon: SvgPicture.asset(
+                'assets/icons/notification.svg',
+                colorFilter: ColorFilter.mode(
+                  appColors.blue,
+                  BlendMode.srcIn,
+                ),
+              ),
+            ),
+            NavigationDestination(
+              label: 'Профиль',
+              icon: SvgPicture.asset(
+                'assets/icons/profile.svg',
+                colorFilter: ColorFilter.mode(
+                  appColors.grey_6,
+                  BlendMode.srcIn,
+                ),
+              ),
+              selectedIcon: SvgPicture.asset(
+                'assets/icons/profile.svg',
+                colorFilter: ColorFilter.mode(
+                  appColors.blue,
+                  BlendMode.srcIn,
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

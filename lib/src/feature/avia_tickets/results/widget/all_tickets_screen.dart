@@ -1,3 +1,4 @@
+import 'package:avia_tickets/src/core/theme/app_colors_extension.dart';
 import 'package:avia_tickets/src/feature/avia_tickets/results/bloc/tickets_bloc.dart';
 import 'package:avia_tickets/src/feature/avia_tickets/results/widget/search_app_bar.dart';
 import 'package:avia_tickets/src/feature/avia_tickets/results/widget/tickets_list.dart';
@@ -24,7 +25,6 @@ class _AllTicketsScreenState extends State<AllTicketsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
       body: CustomScrollView(
         physics: SnapScrollPhysics.preventStopBetween(0, 13),
         slivers: const [
@@ -47,11 +47,12 @@ class _AllTicketsScreenState extends State<AllTicketsScreen> {
 class _ActionButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final appColors = Theme.of(context).extension<BasicColors>()!;
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
         Material(
-          color: const Color(0xff2261BC),
+          color: appColors.blue,
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(50),
             bottomLeft: Radius.circular(50),
@@ -74,15 +75,11 @@ class _ActionButtons extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 4),
-                  const Text(
+                  Text(
                     'Фильтр',
-                    style: TextStyle(
-                      height: 1.2,
-                      fontSize: 14,
-                      fontStyle: FontStyle.italic,
-                      fontFamily: 'SfProDisplay',
-                      color: Colors.white,
-                    ),
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                          fontStyle: FontStyle.italic,
+                        ),
                   ),
                 ],
               ),
@@ -90,7 +87,7 @@ class _ActionButtons extends StatelessWidget {
           ),
         ),
         Material(
-          color: const Color(0xff2261BC),
+          color: appColors.blue,
           borderRadius: const BorderRadius.only(
             topRight: Radius.circular(50),
             bottomRight: Radius.circular(50),
@@ -113,15 +110,11 @@ class _ActionButtons extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 4),
-                  const Text(
+                  Text(
                     'График цен',
-                    style: TextStyle(
-                      height: 1.2,
-                      fontSize: 14,
-                      fontStyle: FontStyle.italic,
-                      fontFamily: 'SfProDisplay',
-                      color: Colors.white,
-                    ),
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                          fontStyle: FontStyle.italic,
+                        ),
                   ),
                 ],
               ),

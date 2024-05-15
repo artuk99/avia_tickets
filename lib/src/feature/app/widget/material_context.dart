@@ -1,6 +1,8 @@
 import 'package:avia_tickets/src/core/router/routes.dart';
+import 'package:avia_tickets/src/core/theme/theme.dart';
 import 'package:avia_tickets/src/feature/avia_tickets/search/widget/search_scope.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
 
 class MaterialContext extends StatefulWidget {
@@ -42,9 +44,14 @@ class _MaterialContextState extends State<MaterialContext> {
       restorationScopeId: 'avia_tickets_app',
       routerConfig: _router,
       debugShowCheckedModeBanner: false,
-      locale: const Locale('ru', 'RU'),
-      // theme: theme.lightTheme,
-      // darkTheme: theme.darkTheme,
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('ru', 'RU'),
+      ],
+      themeMode: ThemeMode.dark,
+      darkTheme: AppTheme.theme,
       builder: (context, child) => MediaQuery.withClampedTextScaling(
         minScaleFactor: 1.0,
         maxScaleFactor: 2.0,

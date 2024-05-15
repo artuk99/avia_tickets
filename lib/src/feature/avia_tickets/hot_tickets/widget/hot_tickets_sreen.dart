@@ -18,11 +18,10 @@ class HotTicketsScreen extends StatelessWidget {
               icon: const Icon(Icons.arrow_back_ios_new),
             ),
             backgroundColor: const Color(0xff242529),
-            title: const Text(
+            centerTitle: true,
+            title: Text(
               'Горячие билеты',
-              style: TextStyle(
-                color: Colors.white,
-              ),
+              style: Theme.of(context).textTheme.titleLarge,
             ),
           ),
         ],

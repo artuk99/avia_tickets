@@ -1,4 +1,5 @@
 import 'package:avia_tickets/src/core/router/routes.dart';
+import 'package:avia_tickets/src/core/theme/app_colors_extension.dart';
 import 'package:avia_tickets/src/feature/avia_tickets/search/data/destination_offers.dart';
 import 'package:avia_tickets/src/feature/avia_tickets/search/model/city.dart';
 import 'package:avia_tickets/src/feature/avia_tickets/search/model/search_query.dart';
@@ -27,7 +28,7 @@ class _PopularPlacesState extends State<PopularPlaces> {
   Widget build(BuildContext context) {
     return DecoratedBox(
       decoration: BoxDecoration(
-        color: const Color(0xff2F3035),
+        color: Theme.of(context).extension<BasicColors>()!.grey_3,
         borderRadius: BorderRadius.circular(16),
       ),
       child: Padding(
@@ -57,6 +58,7 @@ class _PopularPlace extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appColors = Theme.of(context).extension<BasicColors>()!;
     return Material(
       color: Colors.transparent,
       child: InkWell(
@@ -64,10 +66,10 @@ class _PopularPlace extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
           child: DecoratedBox(
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               border: Border(
                 bottom: BorderSide(
-                  color: Color(0xff3E3F43),
+                  color: appColors.grey_4,
                 ),
               ),
             ),
@@ -92,24 +94,14 @@ class _PopularPlace extends StatelessWidget {
                     children: [
                       Text(
                         city.title,
-                        style: const TextStyle(
-                          height: 1.2,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: 'SfProDisplay',
-                          color: Colors.white,
-                        ),
+                        style: Theme.of(context).textTheme.bodyLarge,
                       ),
                       const SizedBox(height: 4),
-                      const Text(
+                      Text(
                         'Популярное направление',
-                        style: TextStyle(
-                          height: 1.2,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          fontFamily: 'SfProDisplay',
-                          color: Color(0xff5E5F61),
-                        ),
+                        style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                              color: appColors.grey_5,
+                            ),
                       ),
                     ],
                   ),

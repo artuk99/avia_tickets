@@ -1,4 +1,5 @@
 import 'package:avia_tickets/src/core/router/routes.dart';
+import 'package:avia_tickets/src/core/theme/app_colors_extension.dart';
 import 'package:avia_tickets/src/feature/avia_tickets/result_preview/bloc/recommendations_bloc.dart';
 import 'package:avia_tickets/src/feature/avia_tickets/result_preview/widget/recommended_flights.dart';
 import 'package:avia_tickets/src/feature/avia_tickets/result_preview/widget/search_app_bar.dart';
@@ -27,8 +28,8 @@ class _ResultPreviewScreenState extends State<ResultPreviewScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final appColors = Theme.of(context).extension<BasicColors>()!;
     return Scaffold(
-      backgroundColor: Colors.black,
       body: SafeArea(
         child: CustomScrollView(
           physics: SnapScrollPhysics.preventStopBetween(0, 80),
@@ -53,20 +54,17 @@ class _ResultPreviewScreenState extends State<ResultPreviewScreen> {
                   height: 42,
                   child: TextButton(
                     onPressed: _onAllTicketsTap,
-                    style: TextButton.styleFrom(
-                        backgroundColor: const Color(0xff2261BC),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        )),
-                    child: const Text(
+                    style: Theme.of(context).textButtonTheme.style!.copyWith(
+                          backgroundColor: MaterialStateColor.resolveWith(
+                            (states) => appColors.blue,
+                          ),
+                        ),
+                    child: Text(
                       'Посмотреть все билеты',
-                      style: TextStyle(
-                        height: 1.3,
-                        fontSize: 16,
-                        fontStyle: FontStyle.italic,
-                        fontFamily: 'SfProDisplay',
-                        color: Colors.white,
-                      ),
+                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                            fontWeight: FontWeight.w400,
+                            fontStyle: FontStyle.italic,
+                          ),
                     ),
                   ),
                 ),

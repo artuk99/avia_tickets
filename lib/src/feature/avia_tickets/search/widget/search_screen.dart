@@ -1,3 +1,4 @@
+import 'package:avia_tickets/src/core/theme/app_colors_extension.dart';
 import 'package:avia_tickets/src/feature/avia_tickets/search/widget/hints_list.dart';
 import 'package:avia_tickets/src/feature/avia_tickets/search/widget/popular_places.dart';
 import 'package:avia_tickets/src/feature/avia_tickets/search/widget/search_app_bar.dart';
@@ -17,10 +18,11 @@ class SearchScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appColors = Theme.of(context).extension<BasicColors>()!;
     return DecoratedBox(
-      decoration: const BoxDecoration(
-        color: Color(0xff242529),
-        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      decoration: BoxDecoration(
+        color: appColors.grey_2,
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
       ),
       child: Stack(
         children: [
@@ -60,7 +62,7 @@ class SearchScreen extends StatelessWidget {
                 width: 38,
                 child: DecoratedBox(
                   decoration: BoxDecoration(
-                    color: const Color(0xff5E5F61),
+                    color: appColors.grey_5,
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),

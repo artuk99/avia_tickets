@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'dart:ui';
 
+import 'package:avia_tickets/src/core/theme/app_colors_extension.dart';
 import 'package:avia_tickets/src/feature/avia_tickets/result_preview/widget/search_filters.dart';
 import 'package:avia_tickets/src/feature/avia_tickets/search/widget/search_screen.dart';
 import 'package:avia_tickets/src/feature/avia_tickets/search/widget/search_scope.dart';
@@ -124,8 +125,9 @@ class _SearchAppBarDelegate extends SliverPersistentHeaderDelegate {
         (maxExtent - minExtent - _expandedBottomPosition);
     final height = lerpDouble(_expandedSearchFieldHeight, minExtent - 8 - 8, t_3);
 
+    final appColors = Theme.of(context).extension<BasicColors>()!;
     return ColoredBox(
-      color: Colors.black,
+      color: Theme.of(context).scaffoldBackgroundColor,
       child: Stack(
         children: [
           Positioned(
@@ -147,7 +149,7 @@ class _SearchAppBarDelegate extends SliverPersistentHeaderDelegate {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Card(
                   margin: EdgeInsets.zero,
-                  color: const Color(0xff2F3035),
+                  color: appColors.grey_3,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16),
                   ),
@@ -176,21 +178,19 @@ class _SearchAppBarDelegate extends SliverPersistentHeaderDelegate {
                                       children: [
                                         Align(
                                           alignment: Alignment.centerLeft,
-                                          child: Builder(builder: (context) {
-                                            final departure =
-                                                SearchScope.of(context).searchQuery.departure.town;
+                                          child: Builder(
+                                            builder: (context) {
+                                              final departure = SearchScope.of(context)
+                                                  .searchQuery
+                                                  .departure
+                                                  .town;
 
-                                            return Text(
-                                              departure,
-                                              style: const TextStyle(
-                                                height: 1.3,
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w600,
-                                                fontFamily: 'SfProDisplay',
-                                                color: Colors.white,
-                                              ),
-                                            );
-                                          }),
+                                              return Text(
+                                                departure,
+                                                style: Theme.of(context).textTheme.bodySmall,
+                                              );
+                                            },
+                                          ),
                                         ),
                                         Align(
                                           alignment: Alignment.centerRight,
@@ -211,8 +211,8 @@ class _SearchAppBarDelegate extends SliverPersistentHeaderDelegate {
                                 ),
                               ),
                             ),
-                            const Divider(
-                              color: Color(0xff3E3F43),
+                            Divider(
+                              color: appColors.grey_4,
                               indent: 40,
                               endIndent: 16,
                               height: 1,
@@ -232,20 +232,16 @@ class _SearchAppBarDelegate extends SliverPersistentHeaderDelegate {
                                       children: [
                                         Align(
                                           alignment: Alignment.centerLeft,
-                                          child: Builder(builder: (context) {
-                                            final arrival =
-                                                SearchScope.of(context).searchQuery.arrival?.town;
-                                            return Text(
-                                              arrival ?? '',
-                                              style: const TextStyle(
-                                                height: 1.3,
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w600,
-                                                fontFamily: 'SfProDisplay',
-                                                color: Colors.white,
-                                              ),
-                                            );
-                                          }),
+                                          child: Builder(
+                                            builder: (context) {
+                                              final arrival =
+                                                  SearchScope.of(context).searchQuery.arrival?.town;
+                                              return Text(
+                                                arrival ?? '',
+                                                style: Theme.of(context).textTheme.bodySmall,
+                                              );
+                                            },
+                                          ),
                                         ),
                                         Align(
                                           alignment: Alignment.centerRight,
@@ -283,13 +279,7 @@ class _SearchAppBarDelegate extends SliverPersistentHeaderDelegate {
 
                                 return Text(
                                   '$departure - $arrival',
-                                  style: const TextStyle(
-                                    height: 1.3,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600,
-                                    fontFamily: 'SfProDisplay',
-                                    color: Colors.white,
-                                  ),
+                                  style: Theme.of(context).textTheme.bodySmall,
                                 );
                               },
                             ),

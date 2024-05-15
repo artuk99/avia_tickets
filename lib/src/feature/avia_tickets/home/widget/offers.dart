@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:avia_tickets/src/core/theme/app_colors_extension.dart';
 import 'package:avia_tickets/src/core/utils/extensions/price_extension.dart';
 import 'package:avia_tickets/src/core/widget/shimmer.dart';
 import 'package:avia_tickets/src/feature/avia_tickets/home/bloc/offers_bloc.dart';
@@ -26,17 +27,11 @@ class Offers extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         const SizedBox(height: 34),
-        const Padding(
-          padding: EdgeInsets.only(left: 16),
+        Padding(
+          padding: const EdgeInsets.only(left: 16),
           child: Text(
             'Музыкально отлететь',
-            style: TextStyle(
-              height: 1.2,
-              fontSize: 22,
-              fontWeight: FontWeight.w600,
-              fontFamily: 'SfProDisplay',
-              color: Colors.white,
-            ),
+            style: Theme.of(context).textTheme.titleLarge!,
           ),
         ),
         const SizedBox(height: 15),
@@ -69,9 +64,9 @@ class Offers extends StatelessWidget {
                   return widgets;
                 },
                 error: (_) => [
-                  const Text(
+                  Text(
                     'Ошибка',
-                    style: TextStyle(color: Colors.white),
+                    style: Theme.of(context).textTheme.titleLarge!,
                   ),
                 ],
               ),
@@ -85,21 +80,12 @@ class Offers extends StatelessWidget {
             height: 42,
             child: TextButton(
               onPressed: () {},
-              style: TextButton.styleFrom(
-                  backgroundColor: const Color(0xff2F3035),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  )),
-              child: const Text(
+              child: Text(
                 'Показать все места',
-                style: TextStyle(
-                  height: 1.3,
-                  fontSize: 16,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w400,
-                  fontStyle: FontStyle.italic,
-                  fontFamily: 'SfProDisplay',
-                ),
+                style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                      fontWeight: FontWeight.w400,
+                      fontStyle: FontStyle.italic,
+                    ),
               ),
             ),
           ),
@@ -149,25 +135,14 @@ class _OfferCard extends StatelessWidget {
               offer.title,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
-                height: 1.2,
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-                fontFamily: 'SfProDisplay',
-                color: Colors.white,
-              ),
+              style: Theme.of(context).textTheme.bodyLarge!,
             ),
             const SizedBox(height: 12),
             Text(
               offer.town,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
-                height: 1.2,
-                fontSize: 14,
-                fontFamily: 'SfProDisplay',
-                color: Colors.white,
-              ),
+              style: Theme.of(context).textTheme.labelLarge!,
             ),
             const SizedBox(height: 4),
             Row(
@@ -175,19 +150,14 @@ class _OfferCard extends StatelessWidget {
               children: [
                 SvgPicture.asset(
                   'assets/icons/plane.svg',
-                  colorFilter: const ColorFilter.mode(
-                    Color(0xff9F9F9F),
+                  colorFilter: ColorFilter.mode(
+                    Theme.of(context).extension<BasicColors>()!.grey_6,
                     BlendMode.srcIn,
                   ),
                 ),
                 Text(
                   " от ${offer.price.formatted} \u{20BD}",
-                  style: const TextStyle(
-                    height: 1.2,
-                    fontSize: 14,
-                    fontFamily: 'SfProDisplay',
-                    color: Colors.white,
-                  ),
+                  style: Theme.of(context).textTheme.labelLarge!,
                 ),
               ],
             ),
