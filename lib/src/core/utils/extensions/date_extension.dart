@@ -28,3 +28,30 @@ extension DateExtension on DateTime {
 
   String get dayAbbreviated => _dateDayFormatter.format(this);
 }
+
+extension DurationExtension on Duration {
+  /// Returns the flight time in hours.
+  ///
+  /// If the flight duration is less than 10 hours,
+  /// the minutes are formatted according to the following rules:
+  ///   < 15 minutes - discarded
+  ///   > 15 <= 45 - rounded to 30
+  ///   > 45 - discarded and the hour is increased by 1.
+  /// If the flight duration is 10 hours or more, the return value
+  /// is formatted as a string without decimal places, the hours are
+  /// incremented by 1 if the minutes are greater than or equal to 30.
+  ///
+  String get flightTime {
+    String s = '$inHours';
+
+    final m = inMinutes - inHours * 60;
+    if (inHours < 10) {
+      if (m > 15 && m <= 45) s += '.5';
+      if (m > 45) s = '${inHours + 1}';
+    } else {
+      if (m >= 30) s = '${inHours + 1}';
+    }
+
+    return s;
+  }
+}

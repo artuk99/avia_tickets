@@ -34,7 +34,7 @@ class _TicketCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final flyghtTime = ticket.arrival.date.difference(ticket.departure.date);
+    final flyghtDuration = ticket.arrival.date.difference(ticket.departure.date);
 
     final textTheme = Theme.of(context).textTheme;
     final appColors = Theme.of(context).extension<BasicColors>()!;
@@ -137,7 +137,7 @@ class _TicketCard extends StatelessWidget {
                             text: TextSpan(
                               children: [
                                 TextSpan(
-                                  text: '${flyghtTime.inHours}ч в пути',
+                                  text: '${flyghtDuration.flightTime}ч в пути',
                                   style: textTheme.labelLarge,
                                 ),
                                 if (!ticket.hasTransfer) ...[
